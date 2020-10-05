@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "56252805450",
+    "firebase_url": "https://kuehlschrankapplikation.firebaseio.com",
+    "project_id": "kuehlschrankapplikation",
+    "storage_bucket": "kuehlschrankapplikation.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56252805450:android:23ee024825a413307451b3",
+        "android_client_info": {
+          "package_name": "com.franciscowohlgemuth.kuehlschrank_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "56252805450-fnguh9q9ucsqkjpjpod4fb30fhgrfuv3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjr6zYSYK9FIgRH6-WC5vmusrSrVpJUFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "56252805450-fnguh9q9ucsqkjpjpod4fb30fhgrfuv3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
