@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kuehlschrank_app/Models/Users.dart';
+import 'package:kuehlschrank_app/Services/Datenbank.dart';
 
 class AuthService {
 //erzeuge ein Benutzer objekt das von FirebaseUser gegeben wird.
@@ -47,6 +48,10 @@ class AuthService {
       AuthResult result = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser user = result.user;
+      //create new doc for every user
+      await DatabaseService(uid: user.uid)
+          .updateUserData('0', "Francisco", 100);
+      print('should be printet');
       return _userFromFirebase(user);
     } catch (e) {
       print(e.toString());
