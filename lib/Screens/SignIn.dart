@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kuehlschrank_app/Constants/constants.dart';
 import 'package:kuehlschrank_app/Services/Authentifizierig.dart';
@@ -9,6 +10,11 @@ class Anmeldung extends StatefulWidget {
 
 class _AnmeldungState extends State<Anmeldung> {
   final AuthService _firebaseAuth = AuthService();
+  final _formKey = GlobalKey<FormState>();
+
+  String email = ' ';
+  String password = '';
+  String error = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +27,7 @@ class _AnmeldungState extends State<Anmeldung> {
           child: Container(
         width: 300,
         child: Form(
+          key: _formKey,
           child: Column(
             children: [
               Text(
@@ -33,19 +40,32 @@ class _AnmeldungState extends State<Anmeldung> {
                 height: 20,
               ),
               TextFormField(
-                decoration: textInputDecoration.copyWith(hintText: 'email'),
+                decoration: textInputDecoration.copyWith(hintText: 'Email'),
+                validator: (val) => val.isEmpty ? 'EnteranEmail' : null,
+                onChanged: (val) {
+                  setState(() {
+                    email = val;
+                  });
+                },
               ),
               SizedBox(
                 height: 40,
               ),
-              Text('password'),
+              Text('Password'),
               SizedBox(
                 height: 20,
               ),
               TextFormField(
                 decoration: textInputDecoration.copyWith(
-                  hintText: 'password',
+                  hintText: 'Password',
                 ),
+                validator: (val) =>
+                    val.length < 6 ? 'Enter an Password 6 Zeichen' : null,
+                onChanged: (val) {
+                  setState(() {
+                    password = val;
+                  });
+                },
                 obscureText: true,
               ),
               SizedBox(
@@ -53,7 +73,28 @@ class _AnmeldungState extends State<Anmeldung> {
               ),
               RaisedButton(
                 child: Text('Anmelden'),
-                onPressed: () {},
+                onPressed: () async {
+                  if (_formKey.currentState.validate()) {
+                    dynamic result =
+                        await _firebaseAuth.anmeldungMitEmail(email, password);
+                    if (result == null) {
+                      setState(() {
+                        error = 'please give valid credentials';
+                      });
+                    } else {
+                      print(result.uid);
+
+                      Navigator.pop(context);
+                    }
+                  }
+                },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                error,
+                style: TextStyle(color: Colors.red),
               ),
             ],
           ),

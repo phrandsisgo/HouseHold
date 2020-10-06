@@ -79,13 +79,14 @@ class _NeuRegistrierungState extends State<NeuRegistrierung> {
                     dynamic result = await _firebaseAuth.registrierenMitEmail(
                         email, password);
 
-                    Navigator.pop(context);
+                    //  Navigator.pop(context);
                     if (result == null) {
                       setState(() {
                         error = 'please give valid email';
                       });
                     } else {
                       print(result.uid);
+                      Navigator.pop(context);
                     }
                   }
                 },

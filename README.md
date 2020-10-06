@@ -7,6 +7,8 @@ https://www.youtube.com/watch?v=jl5E0UfAGVs&list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJY
 
 Danach mache ich noch wie bei der ToDo app noch ran wie ich Lebensmittel mit den Werten abspeichern kann.
 
+Noch eine Sache ich will schauen wie ds Git funktioniert
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
