@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kuehlschrank_app/Constants/constants.dart';
 import 'package:kuehlschrank_app/Services/Authentifizierig.dart';

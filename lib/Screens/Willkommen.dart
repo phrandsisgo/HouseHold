@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kuehlschrank_app/Screens/NeuRegistrierung.dart';
 import 'package:kuehlschrank_app/Screens/SignIn.dart';
+import 'package:kuehlschrank_app/Services/FirebaseFunctions.dart';
 
 class Willkommen extends StatelessWidget {
+  String nickname;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +25,7 @@ class Willkommen extends StatelessWidget {
                 fontSize: 20,
               ),
             ),
+            Icon(Icons.panorama),
             SizedBox(
               height: 20,
             ),
@@ -71,9 +74,17 @@ class Willkommen extends StatelessWidget {
                     MaterialPageRoute<Widget>(
                         builder: (BuildContext context) => NeuRegistrierung()));
               },
-              child: Text('Registrierung'),
+              child: Text('Registrierung.'),
               color: Colors.red,
-            )
+            ),
+            RaisedButton(onPressed: (){
+              FirebaseFunctionsCloud().changeConsole();
+              
+          //    FirebaseFunctionsCloud().newHaushalt('hello haushaltsname','yikes die UID');
+           //   print('newHaushalt aufgerufen');
+              
+            },
+            child: Text('callable'),)
           ],
         ),
       )),

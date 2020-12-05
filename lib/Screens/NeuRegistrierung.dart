@@ -15,6 +15,7 @@ class _NeuRegistrierungState extends State<NeuRegistrierung> {
   String email = ' ';
   String password = '';
   String error = '';
+  String nickname='';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +61,7 @@ class _NeuRegistrierungState extends State<NeuRegistrierung> {
                   hintText: 'password',
                 ),
                 validator: (val) =>
-                    val.length < 6 ? 'Enter an Password 6 Zeichen' : null,
+                    val.length < 6 ? 'Min. 6 Zeichen' : null,
                 onChanged: (val) {
                   setState(() {
                     password = val;
@@ -71,13 +72,24 @@ class _NeuRegistrierungState extends State<NeuRegistrierung> {
               SizedBox(
                 height: 20,
               ),
+              TextFormField(
+                decoration: textInputDecoration.copyWith(
+                  hintText: 'Dein Anzeigename'
+                ),
+                validator: (val)=> val.length<4?'mind 4 Zeichen':null,
+                onChanged: (val){
+                  setState(() {
+                    nickname=val;
+                  });
+                },
+              ),
               Text('Please Register '),
               RaisedButton(
                 child: Text('Registrieren (eingabe)'),
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     dynamic result = await _firebaseAuth.registrierenMitEmail(
-                        email, password);
+                        email, password,nickname);
 
                     //  Navigator.pop(context);
                     if (result == null) {
@@ -99,7 +111,7 @@ class _NeuRegistrierungState extends State<NeuRegistrierung> {
                 style: TextStyle(color: Colors.red),
               ),
               RaisedButton(
-                child: Text('Sign in anonymously'),
+                child: Text('Anonyme Anmeldung'),
                 onPressed: () async {
                   Navigator.pop(context);
                   dynamic result = await _firebaseAuth.anonAnmeldung();
