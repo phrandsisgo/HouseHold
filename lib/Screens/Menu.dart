@@ -54,6 +54,14 @@ class _MenuState extends State<Menu> {
               color: Colors.green[900]
             ),),
       //      SizedBox(height:10),
+            TextFormField(
+              decoration: textInputDecoration.copyWith(hintText:'neuer Haushalt zur Sammlung hinzufügen'),
+              onChanged:(val){setState(() {
+                formHaushalt=val; 
+              });
+                
+              }
+            ),
             StreamBuilder<DocumentSnapshot>(
               stream:currentHousehold.snapshots(),
               builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot){
@@ -61,7 +69,8 @@ class _MenuState extends State<Menu> {
                 dynamic formErgebnis = formHaushalt;
                 var secondMap = {formHaushalt:formErgebnis};
                 
-                return FlatButton(child: Text('Hinzufügen Test'),onPressed: (){
+                return 
+              FlatButton(child: Text('Hinzufügen Test'),onPressed: (){
                Map<String,dynamic> thirdMap={};
                thirdMap.addAll(firstMap);
                thirdMap.addAll(secondMap);
@@ -73,37 +82,21 @@ class _MenuState extends State<Menu> {
                  'authUsers':[auth.currentUser.uid],
                  'Items':{}
                });
+               Navigator.pop(context);
       //         FirebaseFirestore.instance.collection('UsersById')
                 },);
               }),
-            TextFormField(
-              decoration: textInputDecoration.copyWith(hintText:'neuer Haushalt zur Sammlung hinzufügen'),
-              onChanged:(val){setState(() {
-                formHaushalt=val; 
-              });
-                
-              }
-            ),
-            FlatButton.icon(icon: Icon(Icons.add),label:Text('Hinzufügen'),
+            /*
+            FlatButton.icon(icon: Icon(Icons.add),label:Text('removable I guess'),
              onPressed:()async{
                print(formHaushalt+' wurde hinzugefügt');
                FirebaseFirestore.instance.collection('UsersById').doc(auth.currentUser.uid).update({
                  'Haushalte':{
-                   'hallo':'ich bin hier'
+                   'hallo':formHaushalt
                  }
                });
-        //       FirebaseFirestore.instance.collection('UsersById').doc(auth.currentUser.uid).update({'Haushalte':{formHaushalt:formHaushalt}});
-           //    FirebaseFirestore.instance.collection('collectionPath').doc('sd').update(data)
-               /*
-               FirebaseFirestore.instance.collection('UsersById').doc(auth.currentUser.uid).update({
-                 'Haushalte': {
-                   'haushaltpath':'haushaltname',
-                   'haushalerinoweg':'nomal de hushaltname'
-                 }
-               });*/
                //here i have to make a Function which checks if the collections Document alrdy exists and if not create one damned
-               // print(FirebaseFirestore.instance.collection('Haushalte').doc(formHaushalt).get().exists);
-               
+   
                  final User user = auth.currentUser;
                  uid = user.uid;
                  await Fridges(fridgename: formHaushalt).newFridge(formHaushalt,uid);
@@ -134,6 +127,7 @@ class _MenuState extends State<Menu> {
                 }
               });
             },child: Text('does Document Exist?'),)
+            */
           ]
         ))
 

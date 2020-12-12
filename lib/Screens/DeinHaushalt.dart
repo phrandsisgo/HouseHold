@@ -10,6 +10,7 @@ import 'package:kuehlschrank_app/Screens/TestchooseHome.dart';
 import 'package:kuehlschrank_app/Services/Authentifizierig.dart';
 import 'package:kuehlschrank_app/Services/Datenbank.dart';
 import 'package:kuehlschrank_app/Widgets/ItemsOfHousehold.dart';
+import 'package:kuehlschrank_app/Widgets/streamitems.dart';
 import 'package:kuehlschrank_app/Widgets/yournameTitle.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
@@ -75,80 +76,13 @@ var abc=FirebaseFirestore.instance.collection('UsersById').doc(FirebaseAuth.inst
           ],
         ),
         body: Center(
-          child:
-     //     IconButton(icon: Icon(Icons.arrow_downward), onPressed: (){
-   //         print(Something().haupthaushalt.toString());
-     //      FirebaseFirestore.instance.collection('UsersById').doc(FirebaseAuth.instance.currentUser.uid).get().then((DocumentSnapshot documentSnapshot){ if(documentSnapshot.exists){print('Document Data ${documentSnapshot['household']}');}});
-     //      }))
-          ItemsOfHousehold()
-          
-          /* Column(
-            children: [
-              Text(
-                'Hier kommt noch eine Liste mit allen Lebensmittel rein.',
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              BrewList(),
-              RaisedButton(
-                onPressed: () async {
-                  final User user = auth.currentUser;
-                  uid = user.uid;
-                  FirebaseFirestore.instance
-                      .collection('UsersById')
-                      .doc(uid)
-                      .update({
-                    'Neue Zahl': FieldValue.arrayUnion(['Hallo'])
-                  });
-                },
-                child: Text('SammlungsErweiterung für ref'),
-              ),
-
-              ///Haushalte/FranciscosHaushalt/Inhalt //path to desired Test Colelction
-              RaisedButton(
-                onPressed: () async {
-                  print(auth.currentUser.uid);
-                },
-                child: Text('Print uid'),
-              ),
-              Text(
-                'Hier kannst du dich abmelden',
-                style: TextStyle(fontSize: 25),
-              ),
-              RaisedButton(
-                onPressed: () {
-                  //_yournickname();
-                  //in current state nicknames dont return object.
-                  FirebaseFirestore.instance
-                      .collection('UsersById')
-                      .doc(auth.currentUser.uid)
-                      .get()
-                      .then((DocumentSnapshot documentSnapshot) {
-                    yourNickname = 'Nickname wurde aufgerufen';
-                    print(auth.currentUser.uid);
-                    if (documentSnapshot.exists) {
-                      yourNickname = 'documentSnapshot does exist';
-     //                 _yournickname();
-                     // print('${documentSnapshot.get('Nickname')}');
-                    }
-                  });
-                  // print('hallos');
-                },
-                child: Text('return current User'),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              RaisedButton(
-                onPressed: () async {
-                  await _firebaseAuth.abmeldung();
-                },
-                child: Text('Abmeldung'),
-              ),
-            ],
-          ),*/
-       ) );
+          child: 
+          StreamItems(),
+       ),floatingActionButton: FloatingActionButton(
+         child: Icon(Icons.add),
+         focusColor: Colors.green,
+         backgroundColor: Colors.green,
+       ), );
     //  );
     
   }

@@ -25,10 +25,7 @@ class GetMainHousehold{
   );}
 }
 class Something{
-  DocumentReference mainHousehold= FirebaseFirestore.instance.collection('collectionPath').doc('as');
-  Stream <DocumentSnapshot> get haupthaushalt{
-    return mainHousehold.snapshots();
-  }
+FirebaseFirestore.instance.collection('UsersById')
 }
 
 /*

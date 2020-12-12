@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kuehlschrank_app/Models/Haushalt.dart';
+import 'package:kuehlschrank_app/Models/Item.dart';
 import 'package:provider/provider.dart';
 
 class ItemsOfHousehold extends StatefulWidget {
@@ -12,8 +13,8 @@ class ItemsOfHousehold extends StatefulWidget {
 class _ItemsOfHouseholdState extends State<ItemsOfHousehold> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   String householdname;
-
-
+  
+String mainItemSet;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,9 @@ FirebaseFirestore.instance.collection('UsersById')
 });
     return StreamBuilder<DocumentSnapshot>(
       stream: FirebaseFirestore.instance.collection('Haushalte').doc(householdname).snapshots(),
+      
       builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot){
+        print(householdname+'should be name');
         if(snapshot.hasError){
           return Text('something went wrong');
         }
@@ -40,20 +43,22 @@ FirebaseFirestore.instance.collection('UsersById')
         if(snapshot.connectionState == ConnectionState.waiting){
           return Text('loading');
         }
-     //   return Text('pls work');
-     //the list tile builder has to be reworked.
-        Map itemResultMap= Map <String, dynamic>.from (snapshot.data['Items']);
+        
+        Map itemResultMap= Map<String, dynamic>.from(snapshot.data['Items']);
         List liste=[];
-        itemResultMap.forEach((key, value) =>liste.add(Haushalte.einzeilig(value )));
+        itemResultMap.forEach((key, value) =>liste.add(ItemsInHousehold.einzeilig(value)));
         return ListView.builder(itemBuilder:(context, index){
+          mainItemSet= liste[index].toString();
           return ListTile(
             title: Text(liste[index].toString())
           );
-        } );
+        } ,
+        itemCount: liste.length,);
       },
     );
   }
 }
+/*
 class GetHouseholdName extends StatelessWidget {
    String documentId;
  // GetHouseholdName(this.documentId);
@@ -69,6 +74,5 @@ FirebaseFirestore.instance.collection('UsersById')
   }
 });
     return Text('upthere');
-  //  return FutureBuilder<DocumentSnapshot>(  );
   }
-}
+}*/

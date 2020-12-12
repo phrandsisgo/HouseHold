@@ -32,8 +32,6 @@ class _OfficialDocumentationState extends State<OfficialDocumentation> {
           return Text('loading');
         }
         Map haushaltsmap= Map<String,  dynamic>.from(snapshot.data['Haushalte']);
-        String something='hello there, yes i know';
-        something.splitMapJoin(',');
 
         List liste=[];
         haushaltsmap.forEach((key, value) =>liste.add(Haushalte.einzeilig(value)));
@@ -41,8 +39,8 @@ class _OfficialDocumentationState extends State<OfficialDocumentation> {
             return ListView.builder(itemBuilder: (context, index){
                   mainHouseholdSet= liste[index].toString().replaceAll(',null', '');
 //              print('print of list');
-                return ListTile(title: Text(liste[index].toString().replaceAll(',null', '')
-                ),onTap: (){
+                return ListTile(title: Text(liste[index].toString().replaceAll(',null', ''))
+                ,onTap: (){
                   print(liste[index].toString().replaceAll(',null', ''));
                   
                   FirebaseFirestore.instance.collection('UsersById').doc(auth.currentUser.uid).update({
@@ -51,7 +49,8 @@ class _OfficialDocumentationState extends State<OfficialDocumentation> {
                     });
                //   print('Firebase was updated by'+ liste[index].toString().replaceAll(',null', ''));
                    },);
-            }, itemCount: liste.length);
+            }, 
+            itemCount: liste.length);
       
       },
       
