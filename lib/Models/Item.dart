@@ -6,4 +6,9 @@ class ItemsInHousehold{
   String toString(){
     return '${this.path},${this.name}';
   }
+  ItemsInHousehold.einzeilig(this.path){
+    String zuString(){
+      return '${this.path}';
+    }
+  }
 }
