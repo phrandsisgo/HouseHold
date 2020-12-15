@@ -7,6 +7,7 @@ import 'package:kuehlschrank_app/Models/yourhouseholds.dart';
 import 'package:kuehlschrank_app/Screens/Brew_list.dart';
 import 'package:kuehlschrank_app/Screens/Menu.dart';
 import 'package:kuehlschrank_app/Screens/TestchooseHome.dart';
+import 'package:kuehlschrank_app/Screens/addItem.dart';
 import 'package:kuehlschrank_app/Services/Authentifizierig.dart';
 import 'package:kuehlschrank_app/Services/Datenbank.dart';
 import 'package:kuehlschrank_app/Widgets/ItemsOfHousehold.dart';
@@ -34,56 +35,129 @@ class _DeinKuehlschrankState extends State<DeinKuehlschrank> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   //final firestoreInstance = FirebaseFirestoe.instance
+  String dateString='random String(dont mind me)';
   String uid;
   String yourNickname = 'nullNickname';
-  
-var abc=FirebaseFirestore.instance.collection('UsersById').doc(FirebaseAuth.instance.currentUser.uid).get().then((DocumentSnapshot documentSnapshot){
-  return '${documentSnapshot.toString()}';
-  print('${documentSnapshot.toString()}');
-});
-  
+  void newEntry(){
+     showDialog<AlertDialog>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: TextField(
+
+          ),
+        );
+      }
+    );
+  }
+  var abc = FirebaseFirestore.instance
+      .collection('UsersById')
+      .doc(FirebaseAuth.instance.currentUser.uid)
+      .get()
+      .then((DocumentSnapshot documentSnapshot) {
+    return '${documentSnapshot.toString()}';
+    print('${documentSnapshot.toString()}');
+  });
+
   @override
   Widget build(BuildContext context) {
-   // return StreamProvider<QuerySnapshot>.value(value: DatabaseService().brews,child:
-      return Scaffold(
-        backgroundColor: Colors.green[200],
-        appBar: AppBar(
-          backgroundColor: Colors.green,
-          title: YournameTitle(),
-   //       _yournickname(),
-     //     Text('Hallo '+auth.currentUser.uid,style: TextStyle(fontSize: 13),),
-          actions: [
-            IconButton(icon: Icon(Icons.logout),   onPressed: () async {
-                  await _firebaseAuth.abmeldung();
-                },),
-            IconButton(
+    // return StreamProvider<QuerySnapshot>.value(value: DatabaseService().brews,child:
+    return Scaffold(
+      backgroundColor: Colors.green[200],
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        title: YournameTitle(),
+        //       _yournickname(),
+        //     Text('Hallo '+auth.currentUser.uid,style: TextStyle(fontSize: 13),),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () async {
+              await _firebaseAuth.abmeldung();
+            },
+          ),
+          IconButton(
               icon: Icon(Icons.home),
-              onPressed: (){
-                Navigator.push<Widget>(context, 
-                MaterialPageRoute(builder: (BuildContext context)=> TestHome()));
+              onPressed: () {
+                Navigator.push<Widget>(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => TestHome()));
               }),
-            IconButton(
-                icon: Icon(Icons.menu),
-                onPressed: () {
-                  Navigator.push<Widget>(
-                      context,
-                      MaterialPageRoute<Widget>(
-                          builder: (BuildContext context) => Menu()));
-                }),
-            SizedBox(
-              width: 15,
+          IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {
+                Navigator.push<Widget>(
+                    context,
+                    MaterialPageRoute<Widget>(
+                        builder: (BuildContext context) => Menu()));
+              }),
+          SizedBox(
+            width: 15,
+          )
+        ],
+      ),
+      body: Center(
+        child: StreamItems(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        focusColor: Colors.green,
+        backgroundColor: Colors.green,
+        onPressed: () {
+      //    newEntry();
+          
+          showDialog<AlertDialog>(
+          context: context,
+          builder: (BuildContext context){
+            return AlertDialog(
+            title: Text('Edit name and date of your Item.'),
+            content: Column(
+              children: [
+                Text('hello there'),
+                TextField(),
+                Text(dateString),
+                RaisedButton(child: Text('Enter the Date'), onPressed:(){
+                    
+          showDatePicker(
+                  context: context,
+                  helpText: 'Enter the expiration Date of your Item',
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(2010),
+                  lastDate: DateTime(2030))
+              .then((date) {});
+         
+                  }),
+                Row(children: [
+                  RaisedButton(child: Text('add'),onPressed: null,),
+                  RaisedButton(child: Text('cancel'),onPressed: (){
+                    dateString='helloworld';
+                  },),
+                  
+                ],)
+              ],
             )
-          ],
-        ),
-        body: Center(
-          child: 
-          StreamItems(),
-       ),floatingActionButton: FloatingActionButton(
-         child: Icon(Icons.add),
-         focusColor: Colors.green,
-         backgroundColor: Colors.green,
-       ), );
+            
+          /*  actions: [
+              TextField(),
+              RaisedButton(onPressed: null, child: Text('add')),
+              RaisedButton(onPressed: null, child: Text('cancel')),
+            ],*/
+          );}
+          );
+
+          /*
+          showDatePicker(
+                  context: context,
+                  helpText: 'Enter the expiration Date of your Item',
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(2010),
+                  lastDate: DateTime(2030))
+              .then((date) {});*/
+         
+        },
+      ),
+    );
     //  );
-    
   }
 }
