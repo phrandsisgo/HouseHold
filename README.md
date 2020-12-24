@@ -1,32 +1,17 @@
-# kuehlschrank_app
-zulezt bei netninjas flutter &firebase stehen geblieben.
-ich muss noch die Formfields mit einer  Funktion verknüpfen die mit der Authentifizierungs Instanz verbunden ist und ich mich somit mit Email&Passwort anmelden kann.
 
-Video für das Verknüpfen:
-https://www.youtube.com/watch?v=jl5E0UfAGVs&list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC&index=12
+Read me:
+-Please keep in mind that this is my first Fullstack Flutter project.
+-this is still under construction so a lot of the content can still change.
+-My goal is to publish it on the android store by february 2021
 
-to initialize flutter
-https://stackoverflow.com/questions/50773307/initializing-gradle-is-taking-forever-on-android-studio-for-flutter-project
-
-
-Noch eine Sache ich will schauen wie ds Git funktioniert
-
-## eint Tutorial das ich unbedingt noch nachlesen muss von Medium über firestore mit flutter:
-## https://medium.com/firebase-tips-tricks/how-to-use-cloud-firestore-in-flutter-9ea80593ca40
-
-## offiziele Dokumentation um zu schauen wie ich eine einzelne Ver als String bekomme: https://firebase.flutter.dev/docs/firestore/usage 
-
-## an other
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This is a list what is still missing for this Project to end:
+# finish the function to enable the User to update/change Items to his household Database
+# create a function that the Users Can share their Household database with the people who share the same household.
+# make a function to push the expiration date further away. (like the snooze function but for a couple days insted minutes)
+# testing all the functions on an actual phone.
+# Test it on some potential users so that they can give me feedback so I can improve from them.
+# find bugs and refactor the code so no dead code is available anymore, and everything runs smooth.
+# redisign it (that it looks according to the User reviews of the app)
+# add the security rules on the Firestore Backend.
+# get acces to a mac and make an iOS version of it.
+# publish it on both the google playstore and the ios app store.

@@ -24,9 +24,6 @@ class GetMainHousehold{
     }
   );}
 }
-class Something{
-FirebaseFirestore.instance.collection('UsersById')
-}
 
 /*
 

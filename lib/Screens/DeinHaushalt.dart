@@ -35,9 +35,11 @@ class _DeinKuehlschrankState extends State<DeinKuehlschrank> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   //final firestoreInstance = FirebaseFirestoe.instance
-  String dateString='random String(dont mind me)';
-  String uid;
+  String _dateString='random String(dont mind me)';
+  //String uid;
   String yourNickname = 'nullNickname';
+  String itemTitle;
+  String mainhousehold='defaultVAlue';
   void newEntry(){
      showDialog<AlertDialog>(
       context: context,
@@ -49,7 +51,13 @@ class _DeinKuehlschrankState extends State<DeinKuehlschrank> {
         );
       }
     );
-  }
+  }/*
+  void changemainhousehold = FirebaseFirestore.instance
+      .collection('UsersById')
+      .doc(FirebaseAuth.instance.currentUser.uid)
+      .get().then((DocumentSnapshot documentSnapshot){
+        mainhousehold= '${documentSnapshot.toString()}';
+      });*/
   var abc = FirebaseFirestore.instance
       .collection('UsersById')
       .doc(FirebaseAuth.instance.currentUser.uid)
@@ -114,9 +122,13 @@ class _DeinKuehlschrankState extends State<DeinKuehlschrank> {
             title: Text('Edit name and date of your Item.'),
             content: Column(
               children: [
-                Text('hello there'),
-                TextField(),
-                Text(dateString),
+          //      Text('hello there'),
+                TextField(onChanged: (val){
+                  setState(() {
+                    itemTitle=val;
+                  });
+                },),
+                Text(_dateString),
                 RaisedButton(child: Text('Enter the Date'), onPressed:(){
                     
           showDatePicker(
@@ -125,35 +137,45 @@ class _DeinKuehlschrankState extends State<DeinKuehlschrank> {
                   initialDate: DateTime.now(),
                   firstDate: DateTime(2010),
                   lastDate: DateTime(2030))
-              .then((date) {});
-         
+              .then((val) {
+                setState(() {
+                  _dateString = val.toString();
+                  print(_dateString);
+                });
+              });
                   }),
+                  RaisedButton(child:Text('test random function'),onPressed: (){
+                    
+                  },),
                 Row(children: [
-                  RaisedButton(child: Text('add'),onPressed: null,),
+                  RaisedButton(child: Text('ADD'),onPressed: (){
+                    Map<String,dynamic> mainmap={itemTitle:_dateString.toString().replaceAll(' 00:00:00.000', '')};
+                   // print(mainmap.runtimeType.toString());
+                    
+                    FirebaseFirestore.instance.collection('Haushalte').doc('pfizer').update(
+                      {'Items':{
+                        mainmap
+                      }});
+                    FirebaseFirestore.instance.collection('Haushalte').doc('pfizer').update(
+                      {'Items':{
+                        itemTitle:_dateString.toString().replaceAll(' 00:00:00.000', '')
+                      }});
+                        print('abc');
+
+                 //   FirebaseFirestore.instance.collection('Haushalte').doc();
+
+                  },),
                   RaisedButton(child: Text('cancel'),onPressed: (){
-                    dateString='helloworld';
+                    Navigator.pop(context);
                   },),
                   
                 ],)
               ],
             )
             
-          /*  actions: [
-              TextField(),
-              RaisedButton(onPressed: null, child: Text('add')),
-              RaisedButton(onPressed: null, child: Text('cancel')),
-            ],*/
           );}
           );
 
-          /*
-          showDatePicker(
-                  context: context,
-                  helpText: 'Enter the expiration Date of your Item',
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(2010),
-                  lastDate: DateTime(2030))
-              .then((date) {});*/
          
         },
       ),

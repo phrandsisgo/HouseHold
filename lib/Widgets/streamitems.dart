@@ -49,8 +49,10 @@ FirebaseFirestore.instance.collection('UsersById')
         Map itemResultMap= Map<String, dynamic>.from(snapshot.data['Items']);
         List titleList=[];
         List dateList=[];
-        itemResultMap.forEach((key, value) =>titleList.add(ItemsInHousehold.einzeilig(key)));
-        itemResultMap.forEach((key, value) =>dateList.add(ItemsInHousehold.einzeilig(value)));
+        itemResultMap.forEach((key, value) =>
+        titleList.add(ItemsInHousehold.einzeilig(key)));
+        itemResultMap.forEach((key, value) =>
+        dateList.add(ItemsInHousehold.einzeilig(value)));
       //  return Text(snapshot.data['Items'].toString());
         
         return ListView.builder(itemBuilder: (context, index){

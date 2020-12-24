@@ -36,7 +36,8 @@ class _MenuState extends State<Menu> {
    // CollectionReference benutzerUID = FirebaseFirestore.instance.collection('UserById').doc();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Menu 1'),
+        backgroundColor: Colors.green,
+        title: Text('Menu'),
       ),
       body:Center(child:
       Column(children:[
@@ -86,48 +87,7 @@ class _MenuState extends State<Menu> {
       //         FirebaseFirestore.instance.collection('UsersById')
                 },);
               }),
-            /*
-            FlatButton.icon(icon: Icon(Icons.add),label:Text('removable I guess'),
-             onPressed:()async{
-               print(formHaushalt+' wurde hinzugefügt');
-               FirebaseFirestore.instance.collection('UsersById').doc(auth.currentUser.uid).update({
-                 'Haushalte':{
-                   'hallo':formHaushalt
-                 }
-               });
-               //here i have to make a Function which checks if the collections Document alrdy exists and if not create one damned
-   
-                 final User user = auth.currentUser;
-                 uid = user.uid;
-                 await Fridges(fridgename: formHaushalt).newFridge(formHaushalt,uid);
-                 print('next line prints uid: '+uid);
-                 Navigator.pop(context);
-  //     print(uid);
-        //        await DatabaseService();
-              },
-            ),
-            RaisedButton(onPressed:() {
-              for( var i =0; i<4;i++){
-                randomHaushaltNR = i;
-              }
-              randomHaushaltNR = randm.nextInt(9999);
-               String requestFornewHoushold=formHaushalt+ '#'+randomHaushaltNR.toString();
-              FirebaseFirestore.instance.collection('Haushalte').doc(requestFornewHoushold).get().then((DocumentSnapshot documentSnapshot){
-                if(documentSnapshot.exists){
-                  //in dem unteren Block braucht es ein try again
-                  print('should get another random haushaltsnummer and try again');
-                }else{
-                  FirebaseFirestore.instance.collection('Haushalte').doc(requestFornewHoushold).set({
-                    'new household': 'remove this item to make a new one'
-                  });
-                  FirebaseFirestore.instance.collection('UsersById').doc(auth.currentUser.uid).set({
-                    'path':'Haushalte/'+requestFornewHoushold
-                  });
-                  print('make new household');
-                }
-              });
-            },child: Text('does Document Exist?'),)
-            */
+          
           ]
         ))
 
