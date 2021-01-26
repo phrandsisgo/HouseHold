@@ -33,4 +33,3 @@ This is a list what is still missing for this Project to end:
  add the security rules on the Firestore Backend.
  get acces to a mac and make an iOS version of it.
  publish it on both the google playstore and the ios app store.
->>>>>>> 845cbae7a2ef19eef4b686ab45026d3fa64ebcad
