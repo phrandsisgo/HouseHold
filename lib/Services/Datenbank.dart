@@ -14,9 +14,11 @@ class DatabaseService {
     return await brewCollection.doc(uid).set({
       'Email': email,
       'Nickname': nickname,
+      'Notification':null,
       'uid':uid,
       'household':null,
-      'Haushalte':{}
+      'Haushalte':{},
+      'Notifcation':[],
     });
   
     }
@@ -29,7 +31,17 @@ class DatabaseService {
 }
 //add Data muss noch hier sein
 
-
+class ListByEmail{
+  final String uid;
+  String email;
+  ListByEmail({this.uid});
+  Future updateUserData(String email)async{
+    return await FirebaseFirestore.instance.collection('UsersByEmail').doc(email).set({
+      'uid':uid,
+      'email':email
+    });
+  }
+}
 
 class DatabaseNicknames{
   final String uid;

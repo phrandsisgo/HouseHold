@@ -14,7 +14,7 @@ class _YournameTitleState extends State<YournameTitle> {
       stream: FirebaseFirestore.instance.collection('UsersById').doc(auth.currentUser.uid).snapshots(),
       builder:(BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot){
         if(snapshot.hasError){
-          return Text('something went wrong');
+          return Text('snapshot has an Error');
         }
         if(!snapshot.hasData){
           return Text('snapshot has no data in Datenbank');
@@ -23,7 +23,7 @@ class _YournameTitleState extends State<YournameTitle> {
           return Text('loading');
         }
         Map<String, dynamic> data = snapshot.data.data();
-        return  Text ('Hallo ${data['Nickname']}');
+        return  Text ('Hello ${data['Nickname']}');
       }
     );
   }

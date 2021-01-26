@@ -22,7 +22,7 @@ class _NeuRegistrierungState extends State<NeuRegistrierung> {
       backgroundColor: Colors.green[300],
       appBar: AppBar(
         backgroundColor: Colors.green[800],
-        title: Text('Bitte Registrieren sie sich hier'),
+        title: Text('Please register yourself'),
       ),
       body: Center(
           child: Container(
@@ -32,7 +32,7 @@ class _NeuRegistrierungState extends State<NeuRegistrierung> {
           child: Column(
             children: [
               Text(
-                  'Herzlich willkommen, bitte gib uns deine Daten An um dich zu registrieren.'),
+                  'Welcome please insert your data to register.'),
               SizedBox(
                 height: 15,
               ),
@@ -61,7 +61,7 @@ class _NeuRegistrierungState extends State<NeuRegistrierung> {
                   hintText: 'password',
                 ),
                 validator: (val) =>
-                    val.length < 6 ? 'Min. 6 Zeichen' : null,
+                    val.length < 6 ? 'Min. 6 characters' : null,
                 onChanged: (val) {
                   setState(() {
                     password = val;
@@ -74,18 +74,18 @@ class _NeuRegistrierungState extends State<NeuRegistrierung> {
               ),
               TextFormField(
                 decoration: textInputDecoration.copyWith(
-                  hintText: 'Dein Anzeigename'
+                  hintText: 'your nickname'
                 ),
-                validator: (val)=> val.length<4?'mind 4 Zeichen':null,
+                validator: (val)=> val.length<4?'at least 4 characters':null,
                 onChanged: (val){
                   setState(() {
                     nickname=val;
                   });
                 },
               ),
-              Text('Please Register '),
+           //   Text('Please Register '),
               RaisedButton(
-                child: Text('Registrieren (eingabe)'),
+                child: Text('Register'),
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     dynamic result = await _firebaseAuth.registrierenMitEmail(
@@ -110,7 +110,7 @@ class _NeuRegistrierungState extends State<NeuRegistrierung> {
                 error,
                 style: TextStyle(color: Colors.red),
               ),
-              RaisedButton(
+          /*    RaisedButton(
                 child: Text('Anonyme Anmeldung'),
                 onPressed: () async {
                   Navigator.pop(context);
@@ -123,7 +123,7 @@ class _NeuRegistrierungState extends State<NeuRegistrierung> {
                     print(result.uid);
                   }
                 },
-              ),
+              ),*/
             ],
           ),
         ),

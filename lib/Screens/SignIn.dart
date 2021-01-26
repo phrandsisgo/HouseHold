@@ -21,7 +21,7 @@ class _AnmeldungState extends State<Anmeldung> {
       backgroundColor: Colors.green[300],
       appBar: AppBar(
         backgroundColor: Colors.green[800],
-        title: Text('Anmeldung'),
+        title: Text('Sign in'),
       ),
       body: Center(
           child: Container(
@@ -31,7 +31,7 @@ class _AnmeldungState extends State<Anmeldung> {
           child: Column(
             children: [
               Text(
-                  'Herzlich willkommen, bitte gib uns deine Daten An um dich anzumelden.'),
+                  'Welcome, please insert your data to sign in.'),
               SizedBox(
                 height: 30,
               ),
@@ -60,7 +60,7 @@ class _AnmeldungState extends State<Anmeldung> {
                   hintText: 'Password',
                 ),
                 validator: (val) =>
-                    val.length < 6 ? 'Enter an Password 6 Zeichen' : null,
+                    val.length < 6 ? 'Enter an Password 6 Characters' : null,
                 onChanged: (val) {
                   setState(() {
                     password = val;
@@ -72,7 +72,7 @@ class _AnmeldungState extends State<Anmeldung> {
                 height: 20,
               ),
               RaisedButton(
-                child: Text('Anmelden'),
+                child: Text('Sign in'),
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     dynamic result =

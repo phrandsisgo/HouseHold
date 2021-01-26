@@ -19,7 +19,7 @@ String mainItemSet;
   @override
   Widget build(BuildContext context) {
   //  return Text('just to test it out');
-
+/*
 FirebaseFirestore.instance.collection('UsersById')
 .doc(FirebaseAuth.instance.currentUser.uid)
 .get()
@@ -28,7 +28,7 @@ FirebaseFirestore.instance.collection('UsersById')
  //   print('Document Data ${documentSnapshot.data()}');
       householdname='${documentSnapshot['household']}';
   }
-});
+});*/
     return StreamBuilder<DocumentSnapshot>(
       stream: FirebaseFirestore.instance.collection('Haushalte').doc(householdname).snapshots(),
       

@@ -25,58 +25,61 @@ class DeinKuehlschrank extends StatefulWidget {
 class _DeinKuehlschrankState extends State<DeinKuehlschrank> {
   void getData() {
     final databaseReference = FirebaseFirestore.instance;
-    //  databaseReference.collection('brews').getDocuments().
   }
-  //test5
 
   String formHaushalt;
 
   final AuthService _firebaseAuth = AuthService();
   final FirebaseAuth auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
-  //final firestoreInstance = FirebaseFirestoe.instance
-  String _dateString='random String(dont mind me)';
+  String _dateString = 'random String(dont mind me)';
   //String uid;
   String yourNickname = 'nullNickname';
   String itemTitle;
-  String mainhousehold='defaultVAlue';
-  void newEntry(){
-     showDialog<AlertDialog>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: TextField(
-
-          ),
-        );
+  String mainhousehold = 'defaultVAlue';
+  String theHousehold;
+  String docStreamer;
+  
+  void newEntry() {
+    showDialog<AlertDialog>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: TextField(),
+          );
+        });
+  }
+   setDocStreamer(){
+     FirebaseFirestore.instance
+        .collection('Haushalte')
+        .doc(theHousehold)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        docStreamer = '${documentSnapshot.data()["Items"]}';
+        return docStreamer;
       }
-    );
-  }/*
-  void changemainhousehold = FirebaseFirestore.instance
-      .collection('UsersById')
-      .doc(FirebaseAuth.instance.currentUser.uid)
-      .get().then((DocumentSnapshot documentSnapshot){
-        mainhousehold= '${documentSnapshot.toString()}';
-      });*/
-  var abc = FirebaseFirestore.instance
-      .collection('UsersById')
-      .doc(FirebaseAuth.instance.currentUser.uid)
-      .get()
-      .then((DocumentSnapshot documentSnapshot) {
-    return '${documentSnapshot.toString()}';
-    print('${documentSnapshot.toString()}');
-  });
+    });print(theHousehold);
+  }
 
   @override
   Widget build(BuildContext context) {
-    // return StreamProvider<QuerySnapshot>.value(value: DatabaseService().brews,child:
+    FirebaseFirestore.instance
+        .collection('UsersById')
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        theHousehold = '${documentSnapshot.data()["household"]}'
+            .toString()
+            .replaceAll(' ', '');
+      }
+    });
     return Scaffold(
       backgroundColor: Colors.green[200],
       appBar: AppBar(
         backgroundColor: Colors.green,
         title: YournameTitle(),
-        //       _yournickname(),
-        //     Text('Hallo '+auth.currentUser.uid,style: TextStyle(fontSize: 13),),
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
@@ -108,78 +111,119 @@ class _DeinKuehlschrankState extends State<DeinKuehlschrank> {
       body: Center(
         child: StreamItems(),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        focusColor: Colors.green,
-        backgroundColor: Colors.green,
-        onPressed: () {
-      //    newEntry();
-          
-          showDialog<AlertDialog>(
-          context: context,
-          builder: (BuildContext context){
-            return AlertDialog(
-            title: Text('Edit name and date of your Item.'),
-            content: Column(
-              children: [
-          //      Text('hello there'),
-                TextField(onChanged: (val){
-                  setState(() {
-                    itemTitle=val;
-                  });
-                },),
-                Text(_dateString),
-                RaisedButton(child: Text('Enter the Date'), onPressed:(){
-                    
-          showDatePicker(
-                  context: context,
-                  helpText: 'Enter the expiration Date of your Item',
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(2010),
-                  lastDate: DateTime(2030))
-              .then((val) {
-                setState(() {
-                  _dateString = val.toString();
-                  print(_dateString);
-                });
-              });
-                  }),
-                  RaisedButton(child:Text('test random function'),onPressed: (){
-                    
-                  },),
-                Row(children: [
-                  RaisedButton(child: Text('ADD'),onPressed: (){
-                    Map<String,dynamic> mainmap={itemTitle:_dateString.toString().replaceAll(' 00:00:00.000', '')};
-                   // print(mainmap.runtimeType.toString());
-                    
-                    FirebaseFirestore.instance.collection('Haushalte').doc('pfizer').update(
-                      {'Items':{
-                        mainmap
-                      }});
-                    FirebaseFirestore.instance.collection('Haushalte').doc('pfizer').update(
-                      {'Items':{
-                        itemTitle:_dateString.toString().replaceAll(' 00:00:00.000', '')
-                      }});
-                        print('abc');
+      
+      floatingActionButton: StreamBuilder<DocumentSnapshot>(
 
-                 //   FirebaseFirestore.instance.collection('Haushalte').doc();
+          stream: FirebaseFirestore.instance
+              .collection('Haushalte')
+              .doc(theHousehold)
+              .snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+            return FloatingActionButton(
+              child: Icon(Icons.add),
+              focusColor: Colors.green,
+              backgroundColor: Colors.green,
+              onPressed: () {
+                //    newEntry();
 
-                  },),
-                  RaisedButton(child: Text('cancel'),onPressed: (){
-                    Navigator.pop(context);
-                  },),
-                  
-                ],)
-              ],
-            )
-            
-          );}
-          );
+                showDialog<AlertDialog>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                          title: Text('Edit name and date of your Item.'),
+                          content: Column(
+                            children: [
+                              TextField(
+                                onChanged: (val) {
+                                  setState(() {
+                                    itemTitle = val;
+                                  });
+                                },
+                              ),
+                              Text(_dateString),
+                              RaisedButton(
+                                  child: Text('Enter the Date'),
+                                  onPressed: () {
+                                    showDatePicker(
+                                            context: context,
+                                            helpText:
+                                                'Enter the expiration Date of your Item',
+                                            initialDate: DateTime.now(),
+                                            firstDate: DateTime(2010),
+                                            lastDate: DateTime(2030))
+                                        .then((val) {
+                                      setState(() {
+                                        _dateString = val.toString();
+                                        print(_dateString);
+                                      });
+                                    });
+                                  }),/*
+                              RaisedButton(
+                                child: Text('test random function'),
+                                onPressed: () { FirebaseFirestore.instance
+        .collection('Haushalte')
+        .doc('SomeHousehold')
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        theHousehold = '${documentSnapshot.data()["Items"]}'
+            .toString()
+            .replaceAll(' ', '');
+      }
+    });print(theHousehold);
+                                },
+                              ),*/
+                              Row(
+                                children: [
+                                  RaisedButton(
+                                    child: Text('ADD'),
+                                    onPressed: () {
+                                      setState(){ FirebaseFirestore.instance
+        .collection('UsersById')
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        theHousehold = '${documentSnapshot.data()["household"]}'
+            .toString()
+            .replaceAll(' ', '');
+      }
+    });}
+                                      String streamingHousehold = "Items";
 
-         
-        },
-      ),
+                                      var firstMap =
+                                          snapshot.data[streamingHousehold];
+                                      var secondMap = {
+                                        itemTitle: _dateString
+                                            .toString()
+                                            .replaceAll(' 00:00:00.000', '')
+                                      };
+                                      Map<String, dynamic> mainmap = {};
+                                      mainmap.addAll(firstMap);
+                                      mainmap.addAll(secondMap);
+                                      
+                                      FirebaseFirestore.instance
+                                          .collection('Haushalte')
+                                          .doc(theHousehold)
+                                          .update({'Items': mainmap});
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                  RaisedButton( 
+                                    child: Text('cancel'),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                ],
+                              )
+                            ],
+                          ));
+                    });
+              },
+            );
+          }),
     );
-    //  );
   }
 }

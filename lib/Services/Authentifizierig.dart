@@ -48,7 +48,7 @@ class AuthService {
     }
   }
 
-//register with email&passwort
+//register a new Userwith email&passwort
   Future registrierenMitEmail(String email, String password, String nickname) async {
     try {
       UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(
@@ -57,6 +57,7 @@ class AuthService {
       //create new doc for every user
       await DatabaseService(uid: user.uid).updateUserData(email, nickname,);
       await DatabaseNicknames(uid: user.uid).updateUserData(email, nickname);
+      await ListByEmail(uid: user.uid).updateUserData(email);
       print('should be printet');
       userUid=user.uid;
       return _userFromFirebase(user);

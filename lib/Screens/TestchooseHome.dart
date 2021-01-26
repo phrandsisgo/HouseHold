@@ -12,7 +12,7 @@ class _TestHomeState extends State<TestHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Test Choose '),
+        title: Text('Choose Household '),
         actions: [],
       ),
       body:Center(child: 

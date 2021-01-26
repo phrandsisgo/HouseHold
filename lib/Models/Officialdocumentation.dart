@@ -1,4 +1,6 @@
 import 'dart:ffi';
+import 'package:kuehlschrank_app/Widgets/streamitems.dart';
+
 import 'Haushalt.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -47,6 +49,9 @@ class _OfficialDocumentationState extends State<OfficialDocumentation> {
                     'household':
                     liste[index].toString().replaceAll(',null', '') 
                     });
+                    
+                    Navigator.pop(context);
+                    
                //   print('Firebase was updated by'+ liste[index].toString().replaceAll(',null', ''));
                    },);
             }, 
