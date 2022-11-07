@@ -1,3 +1,6 @@
+This is an abandoned & unfinished project! I haven't worked on it since about 2020. 
+
+
 Hello I am trying to write an app that helps against food wasting. The goal is to remind users of this app of the expiration dates of their grocerys.
 A user should be able to to add an Item with the expiration date to his/her database. The app will remember in an pre set time when the items are going to expire.
 This app is using a backend from Google firestore. 
@@ -6,7 +9,7 @@ The reason why I am using a backend is that the user can share his/her items wit
 
 -Please keep in mind that this is my first Fullstack Flutter project.
 -this is still under construction so a lot of the content can still change.
--My goal is to publish a first version on the android store by february 2021
+This project was abandoned by me since I've lost interest in programming but still cool if you stop by and give it a look!
 
 This is a list what is still missing for this Project to end:
 <<<<<<< HEAD
